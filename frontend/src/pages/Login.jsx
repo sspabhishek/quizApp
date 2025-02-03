@@ -52,7 +52,7 @@ const Login = () => {
         className="bg-white p-8 rounded-xl shadow-xl w-full max-w-md"
         onSubmit={handleSubmit}
       >
-        <h3 className="mb-10 text-4xl font-extrabold text-gray-900 text-center">Sign In</h3>
+        <h3 className="mb-10 text-4xl font-extrabold text-neutral-800 text-center">Sign In</h3>
 
         {/* Google Login Button */}
         <button
@@ -109,14 +109,14 @@ const Login = () => {
 
         <button
           type="submit"
-          className="w-full py-3 mt-3 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700"
+          className="w-full p-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-300"
         >
           Sign In
         </button>
 
         <p className="mt-4 text-sm text-gray-700">
           Not registered yet?{" "}
-          <a href="/register" className="font-bold text-indigo-600">
+          <a href="/register" className="font-bold text-blue-500 hover:underline">
             Create an Account
           </a>
         </p>

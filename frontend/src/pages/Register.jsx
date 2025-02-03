@@ -12,7 +12,6 @@ const Register = () => {
     try {
       await register(name, email, password);
       console.log(name, email, password);
-      
       navigate("/login");
     } catch (error) {
       console.error("Error registering:", error);
@@ -20,33 +19,33 @@ const Register = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="w-96 p-6 bg-white rounded-md shadow-md">
-        <h2 className="text-2xl mb-4">Register</h2>
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 p-4">
+      <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
+        <h2 className="mb-10 text-4xl font-extrabold text-neutral-800 text-center">Register</h2>
         <input
           type="text"
-          className="w-full p-2 mb-4 border rounded"
+          className="w-full p-3 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
           placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
         <input
           type="email"
-          className="w-full p-2 mb-4 border rounded"
+          className="w-full p-3 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
           type="password"
-          className="w-full p-2 mb-4 border rounded"
+          className="w-full p-3 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         <button
           onClick={handleRegister}
-          className="w-full p-2 bg-blue-500 text-white rounded"
+          className="w-full p-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-300"
         >
           Register
         </button>

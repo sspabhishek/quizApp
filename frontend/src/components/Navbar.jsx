@@ -1,57 +1,84 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/authSlice";
-import useMobile from "../hooks/useMobile";
-import logo from "../assets/logo.png"
-import { FaChevronDown, FaChevronUp } from "react-icons/fa";
-
+import logo from "../assets/logo.png";
+import { FaChevronDown, FaChevronUp, FaBars, FaTimes } from "react-icons/fa";
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
-
-  const [isMobile] = useMobile();
   const [dropdownVisible, setDropdownVisible] = useState(false);
-
+  const [menuOpen, setMenuOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   const handleLogout = () => {
     dispatch(logout());
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownVisible(false);
+      }
+    };
+    
+    window.addEventListener("click", handleClickOutside);
+    return () => {
+      window.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <nav className="h-20 sticky top-0 z-50 flex justify-between items-center gap-4 px-6 bg-gradient-to-bl from-blue-500  via-blue-200 to-white  shadow-lg backdrop-blur-md bg-opacity-80 border-b border-white/10">
+    <nav className="h-20 sticky top-0 z-50 flex items-center justify-between px-6 bg-gradient-to-bl from-blue-500 via-blue-200 to-white shadow-lg backdrop-blur-md bg-opacity-80 border-b border-white/10">
       {/* Logo Section */}
-      <Link to="/" className="font-bold text-xl text-neutral-800 flex items-center gap-2">
-      <img src={logo} alt="Quiz App" className="h-14 mb-2 mix-blend-multiply transition hover:scale-105" />
+      <Link to="/" className="flex items-center gap-2">
+        <img
+          src={logo}
+          alt="Quiz App"
+          className="h-14 mb-2 mix-blend-multiply transition hover:scale-105"
+        />
       </Link>
 
-      <div className="mx-24 space-x-8 text-neutral-900 flex items-center">
-        <Link to="/">Home</Link>
-        <div className="relative">
+      {/* Mobile Menu Button */}
+      <button className="lg:hidden text-2xl" onClick={() => setMenuOpen(!menuOpen)}>
+        {menuOpen ? <FaTimes /> : <FaBars />}
+      </button>
+
+      {/* Navigation Links */}
+      <div
+        className={`lg:flex lg:items-center lg:space-x-8 text-neutral-900 absolute lg:static top-20 left-0 w-full lg:w-auto bg-white lg:bg-transparent shadow-md lg:shadow-none transition-transform duration-300 ease-in-out ${
+          menuOpen ? "block" : "hidden"
+        } lg:flex`}
+      >
+        <Link to="/" className="block px-4 py-2 lg:p-0">Home</Link>
+        
+        {/* Dropdown */}
+        <div className="relative px-4 py-2 lg:p-0" ref={dropdownRef}>
           <button
-            onClick={() => setDropdownVisible(!dropdownVisible)}
+            onClick={(e) => {
+              e.stopPropagation();
+              setDropdownVisible(!dropdownVisible);
+            }}
             className="flex items-center"
           >
             Quizzes {dropdownVisible ? <FaChevronUp className="ml-1" /> : <FaChevronDown className="ml-1" />}
           </button>
           {dropdownVisible && (
             <div className="absolute bg-blue-100 text-black rounded shadow-md mt-2 p-2 w-48 z-50">
-              <ul 
-              onClick={() => setDropdownVisible(false)}
-              className="space-y-2">
+              <ul className="space-y-2">
                 <li>
-                  <Link to="/practice-quiz" className="block hover:bg-gray-200 p-2">
+                  <Link to="/practice-quiz" className="block hover:bg-blue-300 rounded p-2" onClick={() => setDropdownVisible(false)}>
                     Practice Quiz
                   </Link>
                 </li>
                 <li>
-                  <Link to="/create-quiz" className="block hover:bg-gray-200 p-2">
+                  <Link to="/create-quiz" className="block hover:bg-blue-300 rounded p-2" onClick={() => setDropdownVisible(false)}>
                     Create Quiz
                   </Link>
                 </li>
                 <li>
-                  <Link to="/join-quiz" className="block hover:bg-gray-200 p-2">
+                  <Link to="/join-quiz" className="block hover:bg-blue-300 rounded p-2" onClick={() => setDropdownVisible(false)}>
                     Join Quiz
                   </Link>
                 </li>
@@ -59,38 +86,24 @@ const Navbar = () => {
             </div>
           )}
         </div>
-        <Link to="/about">About us</Link>
-        <Link to="/contact">Contact us</Link>
-          
 
-      {/* Right Side (Login/Register or Logout) */}
-     
+        <Link to="/about" className="block px-4 py-2 lg:p-0">About us</Link>
+        <Link to="/contact" className="block px-4 py-2 lg:p-0">Contact us</Link>
+
+        {/* Auth Buttons */}
         {user ? (
-          <button onClick={handleLogout}>
-            <div className="bg-neutral-800 my-1 px-2 py-1 flex items-center justify-center rounded text-white">
-              Logout
-            </div>
+          <button onClick={handleLogout} className="bg-neutral-800 my-1 px-4 py-2 rounded text-white hover:bg-neutral-700 transition">
+            Logout
           </button>
         ) : (
-          isMobile ? (
-            <div className="container mx-auto grid items-center px-2 h-full ">
-              <div className="bg-neutral-800 my-1 px-2 py-1 flex items-center justify-center rounded text-white">
-                <Link to="/login" >Login</Link>
-              </div>
-              <div className="bg-neutral-800 my-1 px-2 py-1 flex items-center justify-center rounded text-white">
-                <Link to="/register">Register</Link>
-              </div>
-            </div>
-          ) : (
-            <div className="flex items-center justify-center">
-              <div className="bg-neutral-800 mx-3 px-4 py-2 flex items-center justify-center rounded text-white">
-                <Link to="/login" >Login</Link>
-              </div>
-              <div className="bg-neutral-800 px-4 py-2 flex items-center justify-center rounded text-white">
-                <Link to="/register">Register</Link>
-              </div>
-            </div>
-          )
+          <div className="flex flex-col lg:flex-row items-center gap-2 lg:gap-4">
+            <Link to="/login" className="bg-neutral-800 text-white text-sm md:text-base font-medium px-5 py-2 md:px-6 md:py-3 rounded-lg shadow-md hover:bg-neutral-700 transition">
+              Login
+            </Link>
+            <Link to="/register" className="bg-neutral-800 text-white text-sm md:text-base font-medium px-5 py-2 md:px-6 md:py-3 rounded-lg shadow-md  hover:bg-neutral-700 transition">
+              Register
+            </Link>
+          </div>
         )}
       </div>
     </nav>

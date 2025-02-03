@@ -14,7 +14,7 @@ import { ParticipantProvider } from "./services/ParticipantContext";
 import Participents from "./components/ParticipantQuiz";
 import QuizCreator from "./components/CreatorQuiz";
 import Footer from "./components/Footer";
-import InsideCard from "./components/InsideCard";
+// import InsideCard from "./components/InsideCard";
 import NotFound from "./components/NotFound";
 const App = () => {
   return (
@@ -33,13 +33,13 @@ const App = () => {
             <Route path="/quiz-creator" element={<QuizCreator />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/insideCard" element={<InsideCard />} />
+            {/* <Route path="/insideCard" element={<InsideCard />} /> */}
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
-        <Footer />
+      <Footer />
       </Router>
     </ParticipantProvider>
   );
