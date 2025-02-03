@@ -1,32 +1,107 @@
-import axios from "axios";
+const baseURL = "http://localhost:5000/api"; // Backend URL
 
-const API = axios.create({
-  baseURL: "http://localhost:5000/api", // Backend URL
-});
+const getToken = () => {
+  return localStorage.getItem("token");
+};
 
-API.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
+const fetchWithAuth = async (url, options = {}) => {
+  const token = getToken();
+  const headers = {
+    "Content-Type": "application/json",
+    ...(token && { Authorization: `Bearer ${token}` }),
+  };
+
+  const response = await fetch(url, {
+    ...options,
+    headers: {
+      ...headers,
+      ...options.headers,
+    },
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || "Something went wrong");
+  }
+
+  return response.json();
+};
 
 export const login = async (email, password) => {
-  return await API.post("/user/login", { email, password });
+  const response = await fetch(`${baseURL}/user/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email, password }),
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || "Something went wrong");
+  }
+
+  return response.json();
 };
 
 export const register = async (name, email, password) => {
-  return await API.post("/user/register", { name, email, password });
+  const response = await fetchWithAuth(`${baseURL}/user/register`, {
+    method: "POST",
+    body: JSON.stringify({ name, email, password }),
+  });
+  return response;
 };
 
 export const getQuizzes = async () => {
-  return await API.get("/quiz");
+  const response = await fetchWithAuth(`${baseURL}/quiz`, {
+    method: "GET",
+  });
+  return response;
 };
 
 export const addQuiz = async (quizData) => {
-  return await API.post("/quiz/add", quizData);
+  const response = await fetchWithAuth(`${baseURL}/quiz/add`, {
+    method: "POST",
+    body: JSON.stringify(quizData),
+  });
+  return response;
+};
+
+export const joinQuiz = async (code, username) => {
+  const response = await fetchWithAuth(`${baseURL}/quiz/join/${code}`, {
+    method: "POST",
+    body: JSON.stringify({ username }),
+  });
+  return response;
+};
+
+export const startQuiz = async (code) => {
+  const response = await fetchWithAuth(`${baseURL}/quiz/start/${code}`, {
+    method: "POST",
+  });
+  return response;
+};
+
+export const getQuiz = async (code) => {
+  const response = await fetch(`${baseURL}/quiz/${code}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || "Something went wrong");
+  }
+
+  return response.json();
+};
+
+export const submitAnswer = async (code, questionIndex, answer) => {
+  const response = await fetchWithAuth(`${baseURL}/quiz/answer/${code}`, {
+    method: "POST",
+    body: JSON.stringify({ questionIndex, answer }),
+  });
+  return response;
 };

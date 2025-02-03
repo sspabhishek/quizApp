@@ -15,8 +15,11 @@ const quizSlice = createSlice({
     setCurrentQuiz: (state, action) => {
       state.currentQuiz = action.payload;
     },
+    setQuestions: (state, action) => {
+      state.questions = action.payload;
+    },
   },
 });
 
-export const { setQuizzes, setCurrentQuiz } = quizSlice.actions;
+export const { setQuizzes, setCurrentQuiz, setQuestions  } = quizSlice.actions;
 export default quizSlice.reducer;

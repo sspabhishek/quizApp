@@ -1,3 +1,4 @@
+// filepath: /C:/Users/hp/Desktop/Quiz/quizApp/frontend/src/redux/authSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
@@ -9,9 +10,10 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setUser: (state, action) => {
+    loginSuccess: (state, action) => {
       state.user = action.payload.user;
       state.token = action.payload.token;
+      localStorage.setItem("token", action.payload.token);
     },
     logout: (state) => {
       state.user = null;
@@ -21,5 +23,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { setUser, logout } = authSlice.actions;
+export const { loginSuccess, logout } = authSlice.actions;
 export default authSlice.reducer;

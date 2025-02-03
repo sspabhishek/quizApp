@@ -11,6 +11,8 @@ const Register = () => {
   const handleRegister = async () => {
     try {
       await register(name, email, password);
+      console.log(name, email, password);
+      
       navigate("/login");
     } catch (error) {
       console.error("Error registering:", error);

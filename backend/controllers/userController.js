@@ -5,7 +5,7 @@ import User from "../models/userModel.js";
 // Register a new user
 const registerUser = async (req, res) => {
   const { name, email, password } = req.body;
-
+  console.log(name,email,password);
   if (!name || !email || !password) {
     return res.status(400).json({ message: "Please enter all fields" });
   }
@@ -54,7 +54,15 @@ const loginUser = async (req, res) => {
     expiresIn: "1h",
   });
 
-  res.json({ token, user });
+  // Set token in cookie
+  res
+    .cookie("token", token, {
+      httpOnly: true, // Secure from client-side access
+      secure: process.env.NODE_ENV === "production", // Use secure cookies in production
+      sameSite: "strict",
+      maxAge: 3500000, // 1 hour
+    })
+    .json({ token, user });
 };
 
 export { registerUser, loginUser };
