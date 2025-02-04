@@ -23,10 +23,10 @@ const Footer = () => {
                 <div className="flex flex-col items-center md:items-start">
                     <h3 className="font-bold text-lg mb-2">DETAILS INFO</h3>
                     <ul className="text-neutral-800 space-y-1">
-                        <li><Link to="/register" className='hover:text-blue-700' onClick={scrollToTop}>Events</Link></li>
-                        <li><Link to="#" className='hover:text-blue-700' onClick={scrollToTop}>Challenges</Link></li>
-                        <li><Link to="#" className='hover:text-blue-700' onClick={scrollToTop}>Practices</Link></li>
-                        <li><Link to="#" className='hover:text-blue-700' onClick={scrollToTop}>Batches</Link></li>
+                        <li><Link to="/" className="block px-4 py-2 lg:p-0 hover:text-blue-700" onClick={scrollToTop}>Home</Link></li>
+                        <li><Link to="/about" className="block px-4 py-2 lg:p-0 hover:text-blue-700" onClick={scrollToTop}>About us</Link></li>
+                        <li><Link to="/practice-quiz" className='hover:text-blue-700' onClick={scrollToTop}>Practices</Link></li>
+                        <li><Link to="/contact" className="block px-4 py-2 lg:p-0 hover:text-blue-700" onClick={scrollToTop}>Contact us</Link></li>
                         <li><Link to="#" className='hover:text-blue-700' onClick={scrollToTop}>Term & Conditions</Link></li>
                         <li><Link to="#" className='hover:text-blue-700' onClick={scrollToTop}>Privacy Policy</Link></li>
                     </ul>

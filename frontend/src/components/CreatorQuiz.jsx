@@ -3,42 +3,28 @@ import { useSelector } from "react-redux";
 import socket from "../services/socket";
 
 const CreatorQuiz = () => {
-  const questions = useSelector((state) => state.quiz.questions.questions);
   const [leaderboard, setLeaderboard] = useState([]);
   const [loadingLeaderboard, setLoadingLeaderboard] = useState(true);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [quizFinished, setQuizFinished] = useState(false);
-  const timeLimit = useSelector((state) => state.quiz.questions.timeLimit);
 
+  // Leaderboard Update Listener
   useEffect(() => {
-    // Listen for leaderboard updates from the server
-    socket.on("leaderboardUpdate", (participants) => {
+    const leaderboardListener = (participants) => {
+      // console.log("Participants are ", participants);
       setLeaderboard(participants || []);
-      setLoadingLeaderboard(false); // Set loading to false once data arrives
-    });
+      setLoadingLeaderboard(false);
+    };
 
+    console.log("Registering leaderboard update listener");
+    socket.on("leaderboardUpdate", leaderboardListener);
+
+    // Cleanup the listener when the component unmounts
     return () => {
-      socket.off("leaderboardUpdate");
+      socket.off("leaderboardUpdate", leaderboardListener);
     };
   }, []);
 
-  useEffect(() => {
-    if (questions.length > 0 && !quizFinished) {
-      const timer = setTimeout(() => {
-        setCurrentQuestionIndex((prevIndex) => {
-          const nextIndex = prevIndex + 1;
-          if (nextIndex >= questions.length) {
-            setQuizFinished(true); // End the quiz
-            return prevIndex;
-          }
-          return nextIndex;
-        });
-      }, questions[currentQuestionIndex].timeLimit * 1000 || 1000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [questions, currentQuestionIndex, quizFinished]);
-
+  // Function to get the winner from leaderboard
   const getWinner = () => {
     if (leaderboard.length === 0) return null;
     return leaderboard.reduce(
@@ -55,7 +41,7 @@ const CreatorQuiz = () => {
         <h2 className="text-2xl font-bold text-gray-700 mb-4">Leaderboard</h2>
 
         {loadingLeaderboard ? (
-          <p className="text-gray-500">Waiting for participants...</p>
+          <p className="text-gray-500">Waiting for leaderboard updates...</p>
         ) : leaderboard.length > 0 ? (
           <ul>
             {leaderboard
@@ -75,15 +61,6 @@ const CreatorQuiz = () => {
             <h3 className="text-xl font-bold text-green-800">
               🎉 Winner: {winner.username} with {winner.score} points! 🎉
             </h3>
-          </div>
-        )}
-
-        {!quizFinished && (
-          <div className="mt-4 text-gray-600">
-            <p>
-              Quiz in progress... (Question {currentQuestionIndex + 1}/
-              {questions.length})
-            </p>
           </div>
         )}
       </div>

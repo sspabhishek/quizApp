@@ -1,3 +1,5 @@
+
+import axios from "axios";
 const baseURL = "http://localhost:5000/api"; // Backend URL
 
 const getToken = () => {
@@ -104,4 +106,26 @@ export const submitAnswer = async (code, questionIndex, answer) => {
     body: JSON.stringify({ questionIndex, answer }),
   });
   return response;
+};
+
+
+// ✅ Function to save a quiz
+export const saveQuiz = async (quizData) => {
+  try {
+    const response = await axios.post(`${baseURL}/quiz/practice-quizzes`, quizData);
+    return response.data;
+  } catch (error) {
+    console.error("❌ Error saving quiz:", error);
+    return { error: "Failed to save quiz" };
+  }
+};
+
+export const getPracticeQuizzes = async () => {
+  try {
+    const response = await axios.get(`${baseURL}/quiz/practice-quizzes`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching quizzes:", error);
+    return [];
+  }
 };
