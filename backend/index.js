@@ -35,7 +35,7 @@ const server = app.listen(PORT, () => console.log(`Server running on port ${PORT
 
 const io = new Server(server, {
   cors: {
-    origin: "*",
+    origin : process.env.FRONTEND_URL,
   },
 });
 
