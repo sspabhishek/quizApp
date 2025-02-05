@@ -16,7 +16,7 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(cors({
-  origin : process.env.FRONTEND_URL,
+   origin: "*",
 }));
 app.use(cookieParser());
 
@@ -35,7 +35,7 @@ const server = app.listen(PORT, () => console.log(`Server running on port ${PORT
 
 const io = new Server(server, {
   cors: {
-    origin : process.env.FRONTEND_URL,
+    origin: "*",
   },
 });
 
