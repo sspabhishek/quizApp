@@ -4,10 +4,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon index.js",
-    "start": "vercel dev",
-    "build": "echo 'No build step required'"
-  },
+  "dev": "nodemon backend/api/index.js",
+  "start": "vercel dev",
+  "build": "echo 'No build step required'"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
