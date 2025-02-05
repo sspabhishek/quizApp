@@ -1,6 +1,6 @@
 
 import axios from "axios";
-const baseURL = "http://localhost:5000/api"; // Backend URL
+export const baseURL = import.meta.env.VITE_API_URL; // Backend URL
 
 const getToken = () => {
   return localStorage.getItem("token");
