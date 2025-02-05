@@ -6,7 +6,7 @@
   "scripts": {
   "dev": "nodemon backend/api/index.js",
   "start": "vercel dev",
-  "build": "echo 'No build step required'"
+  "build": "react-scripts build"
 },
   "keywords": [],
   "author": "",
