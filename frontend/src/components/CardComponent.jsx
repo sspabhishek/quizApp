@@ -51,8 +51,8 @@ const CardComponent = ({ category, quizzes = [] }) => {
         onClick={handleClick}
       >
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
-        <div className="relative z-10 p-5 flex flex-col justify-end h-full">
-          <h2 className="font-extrabold text-3xl text-white mb-2">{category}</h2>
+        <div className="relative z-10 p-5 flex flex-col text-center justify-end h-full">
+          <h2 className="font-extrabold text-3xl text-neutral-200 mb-56 rounded-lg">{category}</h2>
           <button
             className="mt-4 p-3 text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 transition-colors"
             onClick={(e) => {
