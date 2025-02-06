@@ -30,7 +30,7 @@ const fetchWithAuth = async (url, options = {}) => {
 };
 
 export const login = async (email, password) => {
-  const response = await fetch(`${baseURL}/user/login`, {
+  const response = await fetch(`${baseURL}/api/user/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -47,7 +47,7 @@ export const login = async (email, password) => {
 };
 
 export const register = async (name, email, password) => {
-  const response = await fetchWithAuth(`${baseURL}/user/register`, {
+  const response = await fetchWithAuth(`${baseURL}/api/user/register`, {
     method: "POST",
     body: JSON.stringify({ name, email, password }),
   });
@@ -55,14 +55,14 @@ export const register = async (name, email, password) => {
 };
 
 export const getQuizzes = async () => {
-  const response = await fetchWithAuth(`${baseURL}/quiz`, {
+  const response = await fetchWithAuth(`${baseURL}/api/quiz`, {
     method: "GET",
   });
   return response;
 };
 
 export const addQuiz = async (quizData) => {
-  const response = await fetchWithAuth(`${baseURL}/quiz/add`, {
+  const response = await fetchWithAuth(`${baseURL}/api/quiz/add`, {
     method: "POST",
     body: JSON.stringify(quizData),
   });
@@ -70,7 +70,7 @@ export const addQuiz = async (quizData) => {
 };
 
 export const joinQuiz = async (code, username) => {
-  const response = await fetchWithAuth(`${baseURL}/quiz/join/${code}`, {
+  const response = await fetchWithAuth(`${baseURL}/api/quiz/join/${code}`, {
     method: "POST",
     body: JSON.stringify({ username }),
   });
@@ -78,14 +78,14 @@ export const joinQuiz = async (code, username) => {
 };
 
 export const startQuiz = async (code) => {
-  const response = await fetchWithAuth(`${baseURL}/quiz/start/${code}`, {
+  const response = await fetchWithAuth(`${baseURL}/api/quiz/start/${code}`, {
     method: "POST",
   });
   return response;
 };
 
 export const getQuiz = async (code) => {
-  const response = await fetch(`${baseURL}/quiz/${code}`, {
+  const response = await fetch(`${baseURL}/api/quiz/${code}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -101,7 +101,7 @@ export const getQuiz = async (code) => {
 };
 
 export const submitAnswer = async (code, questionIndex, answer) => {
-  const response = await fetchWithAuth(`${baseURL}/quiz/answer/${code}`, {
+  const response = await fetchWithAuth(`${baseURL}/api/quiz/answer/${code}`, {
     method: "POST",
     body: JSON.stringify({ questionIndex, answer }),
   });
@@ -112,7 +112,7 @@ export const submitAnswer = async (code, questionIndex, answer) => {
 // ✅ Function to save a quiz
 export const saveQuiz = async (quizData) => {
   try {
-    const response = await axios.post(`${baseURL}/quiz/practice-quizzes`, quizData);
+    const response = await axios.post(`${baseURL}/api/quiz/practice-quizzes`, quizData);
     return response.data;
   } catch (error) {
     console.error("❌ Error saving quiz:", error);
@@ -122,7 +122,7 @@ export const saveQuiz = async (quizData) => {
 
 export const getPracticeQuizzes = async () => {
   try {
-    const response = await axios.get(`${baseURL}/quiz/practice-quizzes`);
+    const response = await axios.get(`${baseURL}/api/quiz/practice-quizzes`);
     return response.data;
   } catch (error) {
     console.error("Error fetching quizzes:", error);

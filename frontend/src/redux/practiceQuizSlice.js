@@ -5,7 +5,7 @@ import { baseURL } from "../services/api.js";
 // Async action to fetch quizzes
 export const fetchQuizzes = createAsyncThunk("quiz/fetchQuizzes", async () => {
   try {
-    const response = await axios.get(`${baseURL}/quiz/practice-quizzes`);
+    const response = await axios.get(`${baseURL}/api/quiz/practice-quizzes`);
     return response.data;
   } catch (error) {
     throw Error('Failed to fetch quizzes');
