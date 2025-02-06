@@ -29,7 +29,7 @@ const Footer = () => {
                         <li><Link to="/contact" className="block px-4 py-2 lg:p-0 hover:text-blue-700" onClick={scrollToTop}>Contact us</Link></li>
                         <li><Link to="#" className='hover:text-blue-700' onClick={scrollToTop}>Term & Conditions</Link></li>
                         <li><Link to="#" className='hover:text-blue-700' onClick={scrollToTop}>Privacy Policy</Link></li>
-                        <li><Link to="/add-practice-quiz" className='hover:text-blue-700' onClick={scrollToTop}>Term & Conditions</Link></li>
+                        <li><Link to="/add-practice-quiz" className='hover:text-blue-700' onClick={scrollToTop}>Add practice quiz</Link></li>
                     </ul>
                 </div>
 
