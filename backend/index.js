@@ -30,9 +30,6 @@ connectDB();
 app.use("/api/quiz", quizRoutes);
 app.use("/api/user", userRoutes);
 
-app.get("/", (req, res) => {
-  res.json({ message: "Server is running on render" });
-});
 
 let leaderboard = {};
 
@@ -109,4 +106,9 @@ io.on("connection", (socket) => {
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, "0.0.0.0", () => {
   console.log(`Server running on port ${PORT}`);
+});
+
+
+app.get("/", (req, res) => {
+  res.json({ message: `Server is running ${port}` });
 });
