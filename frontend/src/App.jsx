@@ -14,7 +14,7 @@ import Participents from "./components/ParticipantQuiz";
 import QuizCreator from "./components/CreatorQuiz";
 import Footer from "./components/Footer";
 import NotFound from "./components/NotFound";
-import QuizForm from "./components/QuizForm";
+import QuizForm from "./pages/QuizForm";
 import QuizPage from "./pages/QuizPage";
 
 const App = () => {
