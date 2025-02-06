@@ -1,5 +1,10 @@
 import { io } from "socket.io-client";
 
-const socket = io("http://localhost:5000"); // Replace with your server URL
+const SOCKET_URL = import.meta.env.VITE_API_URL; // Use backend URL
+
+const socket = io(SOCKET_URL, {
+  withCredentials: true,
+  transports: ["websocket"],
+});
 
 export default socket;
