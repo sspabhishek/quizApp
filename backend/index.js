@@ -30,7 +30,7 @@ app.use("/api/user", userRoutes);
 
 
 app.get("/", (req, res) => {
-  response.json({
+  res.json({
     message : 'Server is running '
 }) 
 });
