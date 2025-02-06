@@ -30,6 +30,16 @@ connectDB();
 app.use("/api/quiz", quizRoutes);
 app.use("/api/user", userRoutes);
 
+// Start server
+const PORT = process.env.PORT || 5000;
+server.listen(PORT, "0.0.0.0", () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
+
+app.get("/", (req, res) => {
+  res.json({ message: `Server is running ${port}` });
+});
 
 let leaderboard = {};
 
@@ -100,15 +110,4 @@ io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log("Client disconnected:", socket.id);
   });
-});
-
-// Start server
-const PORT = process.env.PORT || 5000;
-server.listen(PORT, "0.0.0.0", () => {
-  console.log(`Server running on port ${PORT}`);
-});
-
-
-app.get("/", (req, res) => {
-  res.json({ message: `Server is running ${port}` });
 });
