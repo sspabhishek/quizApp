@@ -37,7 +37,7 @@ const App = () => {
             <Route path="/contact" element={<Contact />} />
             <Route path="/add-practice-quiz" element={<QuizForm />} />
             <Route path="/quizzes/:category" element={<QuizPage />} />
-            <Route path="*" element={<NotFound />} />
+            <Route path="/*" element={<NotFound />} />
           </Routes>
         </div>
       <Footer />
