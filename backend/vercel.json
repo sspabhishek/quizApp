@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "name": "Quiz App",
+  "name": "quiz-app",
   "builds": [
     {
       "src": "backend/index.js",
@@ -14,17 +14,11 @@
       }
     }
   ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/backend/index.js"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/frontend/dist/$1"
-    }
-  ],
   "rewrites": [
+    {
+      "source": "/api/(.*)", 
+      "destination": "/backend/index.js"
+    },
     {
       "source": "/(.*)",
       "destination": "/frontend/dist/index.html"
