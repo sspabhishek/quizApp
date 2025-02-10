@@ -34,7 +34,7 @@ const QuizPlayer = ({ quizData, onFinish }) => {
             {quizData[currentQuestion].options.map((option, index) => (
               <button
                 key={index}
-                className="p-2 bg-gray-200 rounded-md hover:bg-blue-500 hover:text-white transition"
+                className="p-2 bg-gray-200 rounded-md lg:hover:bg-blue-500 lg:hover:text-white active:bg-blue-500 active:text-white transition"
                 onClick={() => handleOptionSelect(option)}
               >
                 {option}
